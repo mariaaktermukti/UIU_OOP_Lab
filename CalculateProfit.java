@@ -15,7 +15,8 @@ public class CalculateProfit {
             super(msg);
         }
     }
-    static class TotalUnitSoldMaximumBoundException extends Exception {
+    static class TotalUnitSoldMaximumBoundException extends Exception
+    {
         TotalUnitSoldMaximumBoundException(String msg)
         {
             super(msg);

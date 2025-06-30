@@ -1,28 +1,23 @@
 import java.io.*;
 import java.util.*;
 
-public class FileProgramDemo
-{
+public class FileProgramDemo {
 
-    static class Employee
-    {
+    static class Employee {
         String name;
         String id;
         double[] scores;
 
-        Employee(String name, String id, double[] scores)
-        {
+        Employee(String name, String id, double[] scores) {
             this.name = name;
             this.id = id;
             this.scores = scores;
         }
 
-        double average()
-        {
+        double average() {
             double sum = 0;
-            for (double s : scores)
-            {
-                sum = sum + s;
+            for (double s : scores) {
+                sum += s;
             }
             return sum / scores.length;
         }
@@ -30,14 +25,35 @@ public class FileProgramDemo
 
     public static void main(String[] args)
     {
-        List<Employee> employees = Arrays.asList(
-                new Employee("Maria Akter Mukti",   "2331094", new double[]{85, 87, 88, 89, 90, 92}),
-                new Employee("Mostafizur Rahman Shifat", "2021004", new double[]{98, 45, 67, 45, 78, 98}),
-                new Employee("Virat Kohli","2331095", new double[]{95, 90, 93, 88, 92, 94})
-        );
+        Scanner sc = new Scanner(System.in);
+        List<Employee> employees = new ArrayList<>();
+
+        System.out.print("Enter number of employees: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        for (int i = 1; i <= n; i++) {
+            System.out.println("Enter details for Employee " + i);
+
+            System.out.print("Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("ID: ");
+            String id = sc.nextLine();
+
+            double[] scores = new double[6];
+            System.out.println("Enter 6 performance scores (space separated): ");
+            for (int j = 0; j < 6; j++) {
+                scores[j] = sc.nextDouble();
+            }
+            sc.nextLine();
+
+            employees.add(new Employee(name, id, scores));
+        }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("employee.txt"))) {
-            for (Employee e : employees) {
+            for (Employee e : employees)
+            {
                 writer.write(e.name);
                 writer.newLine();
                 writer.write(e.id);
@@ -58,9 +74,9 @@ public class FileProgramDemo
             String nameLine;
             while ((nameLine = reader.readLine()) != null)
             {
-                String idLine  = reader.readLine();
+                String idLine = reader.readLine();
                 String avgLine = reader.readLine();
-                double avg     = Double.parseDouble(avgLine);
+                double avg = Double.parseDouble(avgLine);
 
                 if (avg > 75.0)
                 {
